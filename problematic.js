@@ -7,8 +7,6 @@ const wss = new WebSocket.Server({server: server, path: "/wss"});
 const dns = require('dns');
 const ping = require('net-ping');
 
-console.log('boot');
-
 var traceRoute = (host, ttl, interval, duration) => {
 
     var session = ping.createSession({
@@ -74,9 +72,8 @@ var traceRoute = (host, ttl, interval, duration) => {
 }
 
 wss.on('connection', function connection(ws, req) {
-    console.log('wsconn');
-    
-    traceRoute('8.8.8.8', 20, 500, 5000)
+
+    traceRoute('195.146.144.8', 20, 500, 5000)
     .then((data) => ws.send(data));
 
 });
@@ -85,7 +82,6 @@ app.use('/tools/static', express.static('./public/static'));
 app.use('/tools/templates', express.static('./public/templates'));
 
 app.get('*', function (req, res) {
-    console.log('file');
     res.sendFile(__dirname + '/index.html');
 });
 
